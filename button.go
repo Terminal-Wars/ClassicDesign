@@ -8,7 +8,6 @@ import (
 	"math"
 
 	"gioui.org/f32"
-	"gioui.org/internal/f32color"
 	"gioui.org/io/semantic"
 	"gioui.org/layout"
 	"gioui.org/op"
@@ -96,7 +95,7 @@ func Clickable(gtx layout.Context, button *widget.Clickable, w layout.Widget) la
 			layout.Expanded(func(gtx layout.Context) layout.Dimensions {
 				defer clip.Rect{Max: gtx.Constraints.Min}.Push(gtx.Ops).Pop()
 				if button.Hovered() || button.Focused() {
-					paint.Fill(gtx.Ops, f32color.Hovered(color.NRGBA{}))
+					paint.Fill(gtx.Ops, Hovered(color.NRGBA{}))
 				}
 				for _, c := range button.History() {
 					drawInk(gtx, c)
@@ -138,9 +137,9 @@ func (b ButtonLayoutStyle) Layout(gtx layout.Context, w layout.Widget) layout.Di
 				background := b.Background
 				switch {
 				case gtx.Queue == nil:
-					background = f32color.Disabled(b.Background)
+					background = Disabled(b.Background)
 				case b.Button.Hovered() || b.Button.Focused():
-					background = f32color.Hovered(b.Background)
+					background = Hovered(b.Background)
 				}
 				paint.Fill(gtx.Ops, background)
 				for _, c := range b.Button.History() {
@@ -174,9 +173,9 @@ func (b IconButtonStyle) Layout(gtx layout.Context) layout.Dimensions {
 				background := b.Background
 				switch {
 				case gtx.Queue == nil:
-					background = f32color.Disabled(b.Background)
+					background = Disabled(b.Background)
 				case b.Button.Hovered() || b.Button.Focused():
-					background = f32color.Hovered(b.Background)
+					background = Hovered(b.Background)
 				}
 				paint.Fill(gtx.Ops, background)
 				for _, c := range b.Button.History() {
@@ -293,7 +292,7 @@ func drawInk(gtx layout.Context, c widget.Press) {
 	alpha := 0.7 * alphaBezier
 	const col = 0.8
 	ba, bc := byte(alpha*0xff), byte(col*0xff)
-	rgba := f32color.MulAlpha(color.NRGBA{A: 0xff, R: bc, G: bc, B: bc}, ba)
+	rgba := MulAlpha(color.NRGBA{A: 0xff, R: bc, G: bc, B: bc}, ba)
 	ink := paint.ColorOp{Color: rgba}
 	ink.Add(gtx.Ops)
 	rr := size * .5

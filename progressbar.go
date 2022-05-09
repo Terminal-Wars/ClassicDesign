@@ -7,7 +7,6 @@ import (
 	"image/color"
 
 	"gioui.org/f32"
-	"gioui.org/internal/f32color"
 	"gioui.org/layout"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
@@ -24,7 +23,7 @@ func ProgressBar(th *Theme, progress float32) ProgressBarStyle {
 	return ProgressBarStyle{
 		Progress:   progress,
 		Color:      th.Palette.ContrastBg,
-		TrackColor: f32color.MulAlpha(th.Palette.Fg, 0x88),
+		TrackColor: MulAlpha(th.Palette.Fg, 0x88),
 	}
 }
 
@@ -52,7 +51,7 @@ func (p ProgressBarStyle) Layout(gtx layout.Context) layout.Dimensions {
 			fillWidth := progressBarWidth * clamp1(p.Progress)
 			fillColor := p.Color
 			if gtx.Queue == nil {
-				fillColor = f32color.Disabled(fillColor)
+				fillColor = Disabled(fillColor)
 			}
 			return shader(fillWidth, fillColor)
 		}),

@@ -7,7 +7,6 @@ import (
 	"image/color"
 
 	"gioui.org/f32"
-	"gioui.org/internal/f32color"
 	"gioui.org/io/semantic"
 	"gioui.org/layout"
 	"gioui.org/op"
@@ -35,7 +34,7 @@ func Switch(th *Theme, swtch *widget.Bool, description string) SwitchStyle {
 	}
 	sw.Color.Enabled = th.Palette.ContrastBg
 	sw.Color.Disabled = th.Palette.Bg
-	sw.Color.Track = f32color.MulAlpha(th.Palette.Fg, 0x88)
+	sw.Color.Track = MulAlpha(th.Palette.Fg, 0x88)
 	return sw
 }
 
@@ -57,7 +56,7 @@ func (s SwitchStyle) Layout(gtx layout.Context) layout.Dimensions {
 		col = s.Color.Enabled
 	}
 	if gtx.Queue == nil {
-		col = f32color.Disabled(col)
+		col = Disabled(col)
 	}
 	trackColor := s.Color.Track
 	t := op.Offset(f32.Point{Y: trackOff}).Push(gtx.Ops)
@@ -101,7 +100,7 @@ func (s SwitchStyle) Layout(gtx layout.Context) layout.Dimensions {
 	// Draw hover.
 	if s.Switch.Hovered() || s.Switch.Focused() {
 		r := 1.7 * thumbRadius
-		background := f32color.MulAlpha(s.Color.Enabled, 70)
+		background := MulAlpha(s.Color.Enabled, 70)
 		paint.FillShape(gtx.Ops, background, circle(thumbRadius, thumbRadius, r))
 	}
 

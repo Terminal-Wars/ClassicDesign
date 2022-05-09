@@ -7,7 +7,6 @@ import (
 	"image/color"
 
 	"gioui.org/f32"
-	"gioui.org/internal/f32color"
 	"gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/op/clip"
@@ -59,7 +58,7 @@ func (s SliderStyle) Layout(gtx layout.Context) layout.Dimensions {
 
 	color := s.Color
 	if gtx.Queue == nil {
-		color = f32color.Disabled(color)
+		color = Disabled(color)
 	}
 
 	// Draw track before thumb.
@@ -74,7 +73,7 @@ func (s SliderStyle) Layout(gtx layout.Context) layout.Dimensions {
 		Min: axis.Convert(image.Pt(thumbPos, axis.Convert(track.Min).Y)),
 		Max: axis.Convert(image.Pt(sizeMain-thumbRadius, axis.Convert(track.Max).Y)),
 	}
-	paint.FillShape(gtx.Ops, f32color.MulAlpha(color, 96), clip.Rect(track).Op())
+	paint.FillShape(gtx.Ops, MulAlpha(color, 96), clip.Rect(track).Op())
 
 	// Draw thumb.
 	pt := axis.Convert(image.Pt(thumbPos, sizeCross/2))

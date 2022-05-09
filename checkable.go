@@ -7,7 +7,6 @@ import (
 	"image/color"
 
 	"gioui.org/f32"
-	"gioui.org/internal/f32color"
 	"gioui.org/layout"
 	"gioui.org/op/clip"
 	"gioui.org/op/paint"
@@ -48,7 +47,7 @@ func (c *checkable) layout(gtx layout.Context, checked, hovered bool) layout.Dim
 						return dims
 					}
 
-					background := f32color.MulAlpha(c.IconColor, 70)
+					background := MulAlpha(c.IconColor, 70)
 
 					b := f32.Rectangle{Max: f32.Pt(float32(size), float32(size))}
 					paint.FillShape(gtx.Ops, background, clip.Ellipse(b).Op(gtx.Ops))
@@ -60,7 +59,7 @@ func (c *checkable) layout(gtx layout.Context, checked, hovered bool) layout.Dim
 						size := gtx.Px(c.Size)
 						col := c.IconColor
 						if gtx.Queue == nil {
-							col = f32color.Disabled(col)
+							col = Disabled(col)
 						}
 						gtx.Constraints.Min = image.Point{X: size}
 						icon.Layout(gtx, col)

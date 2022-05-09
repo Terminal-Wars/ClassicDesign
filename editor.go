@@ -5,7 +5,6 @@ package material
 import (
 	"image/color"
 
-	"gioui.org/internal/f32color"
 	"gioui.org/io/semantic"
 	"gioui.org/layout"
 	"gioui.org/op"
@@ -38,8 +37,8 @@ func Editor(th *Theme, editor *widget.Editor, hint string) EditorStyle {
 		Color:          th.Palette.Fg,
 		shaper:         th.Shaper,
 		Hint:           hint,
-		HintColor:      f32color.MulAlpha(th.Palette.Fg, 0xbb),
-		SelectionColor: f32color.MulAlpha(th.Palette.ContrastBg, 0x60),
+		HintColor:      MulAlpha(th.Palette.Fg, 0xbb),
+		SelectionColor: MulAlpha(th.Palette.ContrastBg, 0x60),
 	}
 }
 
@@ -81,7 +80,7 @@ func (e EditorStyle) Layout(gtx layout.Context) layout.Dimensions {
 
 func blendDisabledColor(disabled bool, c color.NRGBA) color.NRGBA {
 	if disabled {
-		return f32color.Disabled(c)
+		return Disabled(c)
 	}
 	return c
 }
